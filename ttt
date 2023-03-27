@@ -1,5 +1,66 @@
-git init
-git add .
-git commit -m "Initial commit"
-git remote add origin <URL of your GitHub repository>
-git push -u origin master
+# Tic Tac Toe
+
+board = [" " for i in range(9)] # Create a list for the board
+
+def print_board():
+    print("|" + board[0] + "|" + board[1] + "|" + board[2] + "|")
+    print("|" + board[3] + "|" + board[4] + "|" + board[5] + "|")
+    print("|" + board[6] + "|" + board[7] + "|" + board[8] + "|")
+
+def make_move(player, position):
+    board[position] = player
+
+def check_win(player):
+    # Check rows
+    if board[0] == player and board[1] == player and board[2] == player:
+        return True
+    if board[3] == player and board[4] == player and board[5] == player:
+        return True
+    if board[6] == player and board[7] == player and board[8] == player:
+        return True
+    # Check columns
+    if board[0] == player and board[3] == player and board[6] == player:
+        return True
+    if board[1] == player and board[4] == player and board[7] == player:
+        return True
+    if board[2] == player and board[5] == player and board[8] == player:
+        return True
+    # Check diagonals
+    if board[0] == player and board[4] == player and board[8] == player:
+        return True
+    if board[2] == player and board[4] == player and board[6] == player:
+        return True
+    return False
+
+def check_tie():
+    for i in range(9):
+        if board[i] == " ":
+            return False
+    return True
+
+def play_game():
+    print("Welcome to Tic Tac Toe!")
+    print_board()
+
+    while True:
+        # Player 1's turn
+        player = "X"
+        position = int(input("Player 1, choose a position (1-9): ")) - 1
+        make_move(player, position)
+        print_board()
+        if check_win(player):
+            print("Player 1 wins!")
+            break
+        if check_tie():
+            print("It's a tie!")
+            break
+
+        # Player 2's turn
+        player = "O"
+        position = int(input("Player 2, choose a position (1-9): ")) - 1
+        make_move(player, position)
+        print_board()
+        if check_win(player):
+            print("Player 2 wins!")
+            break
+play_game()
